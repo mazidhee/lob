@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lob-matching-engine"
+version = "1.0.0"
+description = "High-performance Limit Order Book Matching Engine with price-time priority"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [
+    {name = "LOB Engine Team"},
+]
+
+dependencies = [
+    "sortedcontainers>=2.4.0",
+    "numpy>=1.26.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "hypothesis>=6.82.0",
+    "line-profiler>=4.1.0",
+    "py-spy>=0.3.14",
+    "matplotlib>=3.8.0",
+    "plotly>=5.18.0",
+    "fastapi>=0.104.0",
+    "uvicorn[standard]>=0.24.0",
+    "websockets>=12.0",
+    "rich>=13.7.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --tb=short"
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "stress: marks stress tests",
+    "property: marks property-based tests",
+]
+
+[tool.coverage.run]
+source = ["src/lob"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 85
